@@ -77,7 +77,12 @@ class plugin_mp_checkin {
     }
 }
 
+Ecjia_PluginManager::extend('mp_checkin', function() {
+    require_once RC_Plugin::plugin_dir_path(__FILE__) . 'mp_checkin.class.php';
+    return new mp_checkin();
+});
+
 RC_Plugin::register_activation_hook(__FILE__, array('plugin_mp_checkin', 'install'));
 RC_Plugin::register_deactivation_hook(__FILE__, array('plugin_mp_checkin', 'uninstall'));
-RC_Hook::add_filter('platform_factory_adapter_instance', array( 'plugin_mp_checkin', 'adapter_instance' ), 10, 2);
+// RC_Hook::add_filter('platform_factory_adapter_instance', array( 'plugin_mp_checkin', 'adapter_instance' ), 10, 2);
 // end
