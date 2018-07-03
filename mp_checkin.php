@@ -49,7 +49,7 @@ Plugin Name: 签到
 Plugin URI: http://www.ecjia.com/plugins/ecjia.mp_checkin/
 Description: 使用插件可以让微信公众平台用户签到获取积分。
 Author: ECJIA TEAM
-Version: 1.0.0
+Version: 1.18.0
 Author URI: http://www.ecjia.com/
 Plugin App: platform
 */
