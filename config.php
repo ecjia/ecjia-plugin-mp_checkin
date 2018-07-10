@@ -49,6 +49,8 @@ return array(
     'ext_code'      => 'mp_checkin',
 
     'ext_icon'      => 'images/icon_checkin.png',
+    
+    'commands'      => ['checkin', '签到'],
 			
 	'forms' => array(
 		array('name' => 'point_status',       'type' => 'radiobox',    'value' => ''),
