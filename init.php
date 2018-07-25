@@ -48,12 +48,19 @@ RC_Loader::load_app_class('platform_interface', 'platform', false);
 class mp_checkin_init implements platform_interface {
     
     public function action() {
-        $css_url = RC_Plugin::plugins_url('css/bootstrap.min.css', __FILE__);
+        $css1_url = RC_Plugin::plugins_url('css/animate.css', __FILE__);
+        $css2_url = RC_Plugin::plugins_url('css/jquery.toast.min.css', __FILE__);
+        $css3_url = RC_Plugin::plugins_url('css/details.min.css', __FILE__);
+
+
         $jq_url = RC_Plugin::plugins_url('js/jquery.js', __FILE__);
     	ecjia_front::$controller->assign('jq_url',$jq_url);
-    	ecjia_front::$controller->assign('css_url',$css_url);
-    	
-    	$bannerbg= RC_Plugin::plugins_url('images/activity-scratch-card-bannerbg.png',__FILE__);
+    	ecjia_front::$controller->assign('css1_url',$css1_url);
+        ecjia_front::$controller->assign('css2_url',$css2_url);
+        ecjia_front::$controller->assign('css3_url',$css3_url);
+
+
+        $bannerbg= RC_Plugin::plugins_url('images/activity-scratch-card-bannerbg.png',__FILE__);
     	ecjia_front::$controller->assign('bannerbg',$bannerbg);
     	
     	$tplpath = RC_Plugin::plugin_dir_path(__FILE__) . 'templates/checkin_index.dwt.php';

@@ -6,19 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=8,IE=9,IE=10,IE=11"/>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>积分查看</title>
-    <link href="https://bean.m.jd.com/js/jquery.toast/jquery.toast.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://bean.m.jd.com/css/animate.css" rel="stylesheet" type="text/css" />
-
-    <script type="text/javascript" src="https://bean.m.jd.com/js/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="https://bean.m.jd.com/js/jquery.tap.min.js"></script>
-    <script type="text/javascript" src="https://bean.m.jd.com/js/jquery.toast/jquery.toast.min.js"></script>
-    <script type="text/javascript" src="https://bean.m.jd.com/js/min_js/common.js?v=20151229"></script>
+    <link rel="stylesheet" type="text/css" href="{$css1_url}">
+    <link rel="stylesheet" type="text/css" href="{$css2_url}">
+    <link rel="stylesheet" type="text/css" href="{$css3_url}">
 
 
 </head>
 <body>
-
-<link rel="stylesheet" href="https://bean.m.jd.com/css/details.min.css">
 
 <div class="details-wrapper">
     <div class="details-info">
