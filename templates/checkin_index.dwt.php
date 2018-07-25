@@ -83,8 +83,6 @@
 </div>
 
 <script type="text/javascript" src="{$jq_url}"></script>
-<script type="text/javascript" src="{$easing_url}"></script>
-<script type="text/javascript" src="{$Rotate_url}"></script>
 
 
 </body>
