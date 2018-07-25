@@ -116,23 +116,24 @@ class mp_checkin extends PlatformAbstract
 
         } else {
 //            $ext_config  = $platform_config->where(array('account_id' => $wechatUUID->getWechatID(), 'ext_code' => $this->getCode()))->get_field('ext_config');
-            $ext_config  = RC_DB::table('platform')->where(array('account_id' => $wechatUUID->getWechatID(), 'ext_code' => $this->getCode()))->pluck('ext_config');
+//            $ext_config  = RC_DB::table('platform')->where(array('account_id' => $wechatUUID->getWechatID(), 'ext_code' => $this->getCode()))->pluck('ext_config');
+            $point_status = $this->config['point_status'];
 
-            $config =  unserialize($ext_config);
-    		foreach ($config as $k => $v) {
-    			if ($v['name'] == 'point_status') {
-    				$point_status = $v['value'];
-    			}
-    			if ($v['name'] == 'point_interval') {
-    				$point_interval = $v['value'];
-    			}
-    			if ($v['name'] == 'point_num') {
-    				$point_num = $v['value'];
-    			}
-    			if ($v['name'] == 'point_value') {
-    				$point_value = $v['value'];
-    			}
-    		}
+//            $config =  unserialize($ext_config);
+//    		foreach ($config as $k => $v) {
+//    			if ($v['name'] == 'point_status') {
+//    				$point_status = $v['value'];
+//    			}
+//    			if ($v['name'] == 'point_interval') {
+//    				$point_interval = $v['value'];
+//    			}
+//    			if ($v['name'] == 'point_num') {
+//    				$point_num = $v['value'];
+//    			}
+//    			if ($v['name'] == 'point_value') {
+//    				$point_value = $v['value'];
+//    			}
+//    		}
             if (isset($point_status) && $point_status == 1) {
 //                $oldpoints = $users_db->where(array('user_id' => $getUserId))->get_field('rank_points');
 //                $rank_points = intval($oldpoints) + intval($point_value);
@@ -144,16 +145,24 @@ class mp_checkin extends PlatformAbstract
                     // 积分赠送
 //                    $this->give_point($openid, $info, $getUserId);
                     $articles = array(
-                        'Title' => '签到成功，您已获得'.$point_value.'积分，当前总积分为'.$rank_points.'分。'
-                    );
+                        'Title'         => '签到成功',
+                        'Description'   => '获取1积分~~',
+                        'Url'           => RC_Uri::url('platform/plugin/show', array('handle' => 'mp_checkin/init', 'openid' => $openid, 'uuid' => $uuid)),
+                        'PicUrl'        => ''                    );
                 } else {
                     $articles = array(
-                        'Title' => '签到次数已用完'
+                        'Title'         => '签到次数已完',
+                        'Description'   => '明天再来签到吧~~',
+                        'Url'           => RC_Uri::url('platform/plugin/show', array('handle' => 'mp_checkin/init', 'openid' => $openid, 'uuid' => $uuid)),
+                        'PicUrl'        => ''
                     );
                 }
             } else {
                 $articles = array(
-                    'Title' => '未启用签到送积分'
+                    'Title'         => '未启用签到送积分',
+                    'Description'   => '快来签到吧~~',
+                    'Url'           => RC_Uri::url('platform/plugin/show', array('handle' => 'mp_checkin/init', 'openid' => $openid, 'uuid' => $uuid)),
+                    'PicUrl'        => ''
                 );
             }
 
@@ -163,7 +172,7 @@ class mp_checkin extends PlatformAbstract
 //                'Url'           => RC_Uri::url('platform/plugin/show', array('handle' => 'mp_ggk/init', 'openid' => $openid, 'uuid' => $uuid)),
 //                'PicUrl'        => RC_Plugin::plugin_dir_url(__FILE__) . '/images/wechat_thumb_pic.jpg',
 //            ];
-            return WechatRecord::Text_reply($this->getMessage(), $articles['Title']);
+            return WechatRecord::News_reply($this->getMessage(), $articles['Title'], $articles['Description'], $articles['Url'], $articles['PicUrl']);
         }
 
 
