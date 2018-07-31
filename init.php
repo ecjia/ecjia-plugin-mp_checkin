@@ -1,4 +1,5 @@
 <?php
+use Ecjia\App\Wechat\WechatUser;
 //
 //    ______         ______           __         __         ______
 //   /\  ___\       /\  ___\         /\_\       /\_\       /\  __ \
@@ -48,6 +49,21 @@ RC_Loader::load_app_class('platform_interface', 'platform', false);
 class mp_checkin_init implements platform_interface {
     
     public function action() {
+
+        $wechatUUID = new \Ecjia\App\Wechat\WechatUUID();
+
+        $wechat_id = $wechatUUID->getWechatID();
+        // 获取GET请求数据
+        $openid = trim($_GET['openid']);
+        $uuid   = trim($_GET['uuid']);
+
+        $wechat_user = new WechatUser($wechat_id, $openid);
+
+        $userid = $wechat_user->getEcjiaUserId();
+
+        $pay_points = RC_DB::table('users')->where('user_id', '=', $userid)->pluck('pay_points');
+
+
         $css1_url = RC_Plugin::plugins_url('css/animate.css', __FILE__);
         $css2_url = RC_Plugin::plugins_url('css/jquery.toast.min.css', __FILE__);
         $css3_url = RC_Plugin::plugins_url('css/details.min.css', __FILE__);
@@ -58,7 +74,7 @@ class mp_checkin_init implements platform_interface {
     	ecjia_front::$controller->assign('css1_url',$css1_url);
         ecjia_front::$controller->assign('css2_url',$css2_url);
         ecjia_front::$controller->assign('css3_url',$css3_url);
-
+        ecjia_front::$controller->assign('pay_points',$pay_points);
 
         $bannerbg= RC_Plugin::plugins_url('images/activity-scratch-card-bannerbg.png',__FILE__);
     	ecjia_front::$controller->assign('bannerbg',$bannerbg);

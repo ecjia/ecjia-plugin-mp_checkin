@@ -19,7 +19,7 @@
         <div class="info-cnt">
             <div class="info-cnt-inner">
                 <div class="info-number">
-                    <span class="info-txt">当前</span><span class="info-num">318</span><span class="info-txt">积分</span>
+                    <span class="info-txt">当前</span><span class="info-num">{$pay_points}</span><span class="info-txt">积分</span>
                 </div>
                 <div class="info-btn">
                     <i class="btn-icon"></i>
