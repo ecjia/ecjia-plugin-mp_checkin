@@ -105,7 +105,7 @@ class mp_checkin extends PlatformAbstract
      * @see \Ecjia\App\Platform\Plugin\PlatformAbstract::eventReply()
      */
     public function eventReply() {
-        $point_status = $this->config['point_status'];
+        $point_status = $this->getConfig('point_status');
 
         if (empty($point_status)) {
             return null;
@@ -121,13 +121,12 @@ class mp_checkin extends PlatformAbstract
 
         } else {
 
+            $point_value = $this->getConfig('point_value');
 
-    		if (isset($point_status) && $point_status == 1) {
-                $point_value = $this->getConfig('point_value');
+            // 积分赠送
+            $bool = $this->give_point($openid, $point_value);
 
-                // 积分赠送
-                $this->give_point($openid, $point_value);
-
+            if ($bool) {
                 $articles = array(
                     'Title'         => '签到成功',
                     'Description'   => sprintf("获取%s积分~~", $point_value),
@@ -152,21 +151,18 @@ class mp_checkin extends PlatformAbstract
      */
     private function give_point($openid, $point_value) {
 
-        $point_status = $this->getConfig('point_status');
         $point_interval = $this->getConfig('point_interval');
         $point_num = $this->getConfig('point_num');
         $point_value = $this->getConfig('point_value');
 
-        // 开启积分赠送
-        if ($point_status == 1) {
+        $count = \Ecjia\App\Wechat\Models\WechatPointModel::where('openid', $openid)->where('keywords', $this->getConfig('ext_code'))
+            ->where('createtime', '>', RC_DB::raw('(UNIX_TIMESTAMP(NOW())- ' .$point_interval . ')'))
+            ->count();
 
-            $count = \Ecjia\App\Wechat\Models\WechatPointModel::where('openid', $openid)->where('keywords', $this->getConfig('ext_code'))
-                                        ->where('createtime', '>', RC_DB::raw('(UNIX_TIMESTAMP(NOW())- ' .$point_interval . ')'))
-                                        ->count();
-
-            if ($count < $point_num) {
-                $this->do_point($openid, $point_value);
-            }
+        if ($count < $point_num) {
+            return $this->do_point($openid, $point_value);
+        } else {
+            return false;
         }
     }
 
@@ -191,6 +187,10 @@ class mp_checkin extends PlatformAbstract
                 'createtime' => RC_Time::gmtime(),
             ];
             \Ecjia\App\Wechat\Models\WechatPointModel::insert($data);
+
+            return true;
+        } else {
+    	    return false;
         }
     }
 }
