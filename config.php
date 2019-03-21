@@ -64,6 +64,19 @@ return array(
 		array('name' => 'point_num',          'type' => 'text',        'value' => ''),
 		array('name' => 'point_interval',     'type' => 'select',      'value' => ''),
 	),
+
+    'dynamic_option' => array(
+        'point_status' => '积分赠送：',
+        'point_status_range' => array('关闭', '开启'),
+        'point_value' => '积分值：',
+        'point_num' => '有效次数：',
+        'point_interval' => '时间间隔：',
+        'point_interval_range' => array(
+            '86400' => '24小时',
+            '43200' => '12小时',
+            '3600'  => '1小时'
+        )
+    ),
 );
 
 // end
